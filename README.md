@@ -6,4 +6,5 @@
 pip3 install toml requests parsel
 ```
 3. 抓网络请求cookie，填入配置文件tsdm_cookie.toml
-4. 运行脚本
+4. 测试运行脚本
+5. 加入cron定时任务，完成！

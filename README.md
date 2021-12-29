@@ -11,5 +11,5 @@ pip3 install toml requests parsel
 6. 加入cron定时任务，完成！  
 crontab定时任务示例：
 ```
-*/30 * * * * cd /root/tsdm_checkin/ && /usr/local/bin/python3.8 tsdm_checkin.py &> checkin.log
+*/30 * * * * cd /root/tsdm_checkin/ && /usr/local/bin/python3.8 tsdm_checkin.py >> checkin.log
 ```

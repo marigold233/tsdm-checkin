@@ -62,7 +62,6 @@ def checkin(session):
     from_hash = Selector(text=response.text).xpath(
         '//*[@id="qiandao"]/input/@value').get()
     if not from_hash:
-        # logger.info("签到： 今天已经签到过了")
         return True
     checkin_api = urljoin(
         BASE_URL, 'plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&inajax=1')

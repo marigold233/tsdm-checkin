@@ -46,7 +46,7 @@ def tsdm_work(session):
     if tips:
         logger.info('打工%s' % ''.join(tips.getall()))
         return
-    for n in range(6):
+    for n in range(1,7):
         session.post(work_url, data={"act": "clickad"})
         logger.info("正在点击第%s广告" % n)
     response = session.post(work_url, data={"act": "getcre"})

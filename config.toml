@@ -1,5 +1,5 @@
 [COOKIES]
-# 示例：登录账号 = 用户cookie
+# 示例：登录账号 = 用户cookie，可以是多个账号
 637372233 = 'cookie'
 [URL]
 base_url = 'https://www.tsdm39.net'

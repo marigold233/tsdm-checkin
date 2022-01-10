@@ -14,12 +14,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def read_cookie(cookie_file):
-    user_cookies = toml.load(cookie_file)
-    if not user_cookies.get('cookies'):
-        logger.error('未找到用户cookie')
+def read_config(config_file):
+    config = toml.load(config_file)
+    cookies = config.get('COOKIES')
+    url = config.get('URL')
+    if not cookies or not url:
+        logger.error('未在配置文件找到用户cookie或者天使动漫网址')
         return
-    return user_cookies.get('cookies')
+    return (cookies, base_url.get('base_url'))
 
 
 def tsdm_login(cookie):
@@ -27,7 +29,7 @@ def tsdm_login(cookie):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.36 Safari/537.36 Edg/97.0.1072.28",
         "Cookie": cookie
     }
-    login_url = urljoin(BASE_URL, 'forum.php')
+    login_url = urljoin(base_url, 'forum.php')
     session = requests.Session()
     session.headers = headers
     login_response = session.get(login_url)
@@ -39,7 +41,7 @@ def tsdm_login(cookie):
 
 
 def tsdm_work(session):
-    work_url = urljoin(BASE_URL, 'plugin.php?id=np_cliworkdz:work')
+    work_url = urljoin(base_url, 'plugin.php?id=np_cliworkdz:work')
     response = session.get(work_url)
     tips = Selector(text=response.text).xpath(
         '//*[@id="messagetext"]/p[1]/text()')
@@ -57,14 +59,14 @@ def tsdm_work(session):
 
 
 def checkin(session):
-    checkin_url = urljoin(BASE_URL, 'plugin.php?id=dsu_paulsign:sign')
+    checkin_url = urljoin(base_url, 'plugin.php?id=dsu_paulsign:sign')
     response = session.get(checkin_url)
     from_hash = Selector(text=response.text).xpath(
         '//*[@id="qiandao"]/input/@value').get()
     if not from_hash:
         return True
     checkin_api = urljoin(
-        BASE_URL, 'plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&inajax=1')
+        base_url, 'plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&inajax=1')
     data = {
         "formhash": from_hash,
         "qdxq": "ch",
@@ -76,7 +78,8 @@ def checkin(session):
     
 
 if __name__ == '__main__':
-    cookies = read_cookie('tsdm_cookie.toml')
+    global base_url
+    cookies,base_url = read_config('config.toml')
     for user, cookie in cookies.items():
         session = tsdm_login(cookie)
         if session:

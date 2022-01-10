@@ -1,3 +1,5 @@
-[cookies]
+[COOKIES]
 # 示例：登录账号 = 用户cookie
 637372233 = 'cookie'
+[URL]
+base_url = ''

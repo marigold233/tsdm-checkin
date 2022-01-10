@@ -7,7 +7,6 @@ from parsel import Selector
 from urllib.parse import urljoin
 
 
-BASE_URL = 'https://www.tsdm39.net'
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s: %(message)s"
 )

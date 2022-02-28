@@ -6,7 +6,7 @@ git clone https://github.com/marigold233/tsdm_checkin.git
 ```
 3. 安装依赖
 ```shell
-pip3 install toml requests parsel
+pip3 install -r requirements.txt
 ```
 3. 抓取浏览器网络请求cookie，填入配置文件tsdm_cookie.toml
 ![image](https://user-images.githubusercontent.com/62014410/155866120-d9dc424c-6472-45f5-b1e4-61d35ba4cd18.png)

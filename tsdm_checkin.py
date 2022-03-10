@@ -19,7 +19,7 @@ def read_config(config_file):
     if not cookies or not url:
         logger.error("未在配置文件找到用户cookie或者天使动漫网址")
         return
-    return (cookies, url.get("base_url"))
+    return (cookies, url.get("base_url"),)
 
 
 def tsdm_login(cookie):

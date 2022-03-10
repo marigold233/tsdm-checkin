@@ -1,4 +1,4 @@
-# tsdm_checkin
+# tsdm-checkin
 天使动漫签到打工
 1. 克隆本仓库
 ```shell

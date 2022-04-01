@@ -1,5 +1,29 @@
-[COOKIES]
-# 示例：登录账号 = 用户cookie，可以是多个账号
-637372233 = 'cookie'
-[URL]
+# 如果是Windows系统执行请改为'Windows'
+os = 'Linux'
+
+[cookies]
+# 单账号：
+# 登录账号 = '用户cookie'
+# 多账号: 
+# 登录账号 = '用户cookie'
+# 登录账号 = '用户cookie'
+# 演示：
+# 648595276 = ''
+
+[url]
+# 天使动漫网址
 base_url = 'https://www.tsdm39.net'
+
+[message.dingding]
+# 钉钉Webhook地址
+url = ''
+# 加签
+secret = ''
+
+[message.gotify]
+# gotify URL
+url = ''
+
+[task]
+# 每多少分钟签到（检查）和打工一次
+minutes=30

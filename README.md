@@ -22,7 +22,7 @@ python3.8 tsdm_checkin.py
 
 5. 放入后台启动：
 ```
-setsid python3.8 tsdm_checkin.py &
+nohup python3 tsdm_checkin.py &
 ```
 
 6. 查看进程是否存在
@@ -40,7 +40,6 @@ pgrep -f tsdm_checkin.py | xargs kill
 
 ## TODO
 1. 增加活动祝福语回复（可以获得天使币和威望）  
-~~2. 日志输出优化~~  
-~~3. 支持钉钉推送签到打工结果~~  
-~~4. 使用定时任务相关库，不依赖于linux cron~~    
- 5. 增加docker镜像
+2. ~~日志输出优化~~  
+3. ~~支持钉钉推送签到打工结果~~  
+4. ~~使用定时任务相关库，不依赖于linux cron~~    

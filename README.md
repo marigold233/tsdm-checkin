@@ -15,7 +15,7 @@ pip3 install -r requirements.txt
 
 4. 测试运行脚本，然后 `ctrl + C` 退出  
 ```shell
-python3.8 tsdm_checkin.py
+python3 tsdm_checkin.py
 ```
 ![image](https://user-images.githubusercontent.com/62014410/161245123-694a72ef-2c1f-449e-b8eb-06b39525a03b.png)
 

@@ -13,25 +13,24 @@ pip3 install -r requirements.txt
 3. 抓取浏览器网络请求cookie，填入配置文件config.toml，并配置相关推送信息
 ![image](https://user-images.githubusercontent.com/62014410/155866120-d9dc424c-6472-45f5-b1e4-61d35ba4cd18.png)
 
-4. 测试运行脚本
+4. 测试运行脚本，然后 `ctrl + C` 退出  
 ```shell
 python3.8 tsdm_checkin.py
 ```
 ![image](https://user-images.githubusercontent.com/62014410/161245123-694a72ef-2c1f-449e-b8eb-06b39525a03b.png)
-然后 `ctrl + C` 退出  
 
 5. 放入后台启动：
-```
+```shell
 nohup python3 tsdm_checkin.py &
 ```
 
 6. 查看进程是否存在
-```
+```shell
 ps -ef | grep "tsdm_checkin"
 ```
 
 ## 其它
-```
+```shell
 # 杀掉进程
 pgrep -f tsdm_checkin.py | xargs kill
 

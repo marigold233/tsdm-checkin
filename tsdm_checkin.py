@@ -5,6 +5,7 @@ import time
 from urllib.parse import urljoin
 
 import requests
+from requests.exceptions import ConnectionError
 import schedule
 import toml
 from loguru import logger
@@ -76,7 +77,11 @@ def tsdm_login(cookie):
     login_url = urljoin(base_url, "forum.php")
     session = requests.Session()
     session.headers = headers
-    login_response = session.get(login_url)
+    try:
+        login_response = session.get(login_url)
+    except ConnectionError as e:
+        logger.error(e)
+        return
     selector = Selector(text=login_response.text)
     if selector.css("#ls_username") and selector.css("#ls_password"):
         logger.error("cookie已经失效，请重新登录获取cookie")
@@ -89,18 +94,19 @@ def tsdm_work(session):
     response = session.get(work_url)
     tips = Selector(text=response.text).xpath('//*[@id="messagetext"]/p[1]/text()')
     if tips:
-        logger.info("打工%s" % "".join(tips.getall()))
-        return
+        # logger.info("打工%s" % "".join(tips.getall()))
+        return {"work_info": "打工%s" % "".join(tips.getall()), "work_status": False}
     for n in range(1, 7):
         session.post(work_url, data={"act": "clickad"})
-        logger.info("正在点击第%s广告" % n)
+        # logger.info("正在点击第%s广告" % n)
     response = session.post(work_url, data={"act": "getcre"})
     message = "打工完成，%s" % "".join(
         Selector(text=response.text)
         .css("#messagetext.alert_info p")
         .re("<p>(.*?)<br>(.*?)<script")
     )
-    logger.info(message)
+    return {"work_info": message, "work_status": True}
+    # logger.info(message)
 
 
 def checkin(session):
@@ -116,7 +122,7 @@ def checkin(session):
     )
     data = {"formhash": from_hash, "qdxq": "ch", "qdmode": 3, "fastreply": 0}
     checkin_response = session.post(checkin_api, data=data)
-    logger.info("TSDM签到成功")
+    return True
 
 
 def main(config):
@@ -130,8 +136,12 @@ def main(config):
         for user, cookie in cookies.items():
             session = tsdm_login(cookie)
             if session:
-                checkin(session)
-                tsdm_work(session)
+                checkin_result = checkin(session)
+                work_result = tsdm_work(session)
+                if checkin_result:
+                    logger.info("TSDM 签到成功！")
+                if work_result.get("work_status") == True:
+                    logger.info(work_result.get("work_info"))
 
     if push_mode == "dingding" and os == "Linux":
         logger.info("当前推送消息模式为钉钉")
@@ -172,7 +182,7 @@ def main(config):
 if __name__ == "__main__":
     log_config = {
         "handlers": [
-            {"sink": sys.stdout, "format": "{time} - {message}"},
+            {"sink": sys.stdout, "format": "{time} - {level} - {message}"},
             {"sink": "checkin.log"},
         ],
         "extra": {"user": "someone"},

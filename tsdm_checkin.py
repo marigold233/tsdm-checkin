@@ -5,7 +5,6 @@ import time
 from urllib.parse import urljoin
 
 import requests
-from requests.exceptions import ConnectionError
 import schedule
 import toml
 from loguru import logger
@@ -79,7 +78,7 @@ def tsdm_login(cookie):
     session.headers = headers
     try:
         login_response = session.get(login_url)
-    except ConnectionError as e:
+    except Exception as e:
         logger.error(e)
         return
     selector = Selector(text=login_response.text)

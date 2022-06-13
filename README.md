@@ -17,7 +17,7 @@ python3.8 tsdm_checkin.py
 ![image](https://user-images.githubusercontent.com/62014410/147519880-69da9863-4007-440d-933f-266c8aed64db.png)
 5. 加入cron定时任务，crontab定时任务示例：
 ```
-*/30 * * * * cd /root/tsdm_checkin/ && /usr/local/bin/python3.8 tsdm_checkin.py &>> checkin.log
+*/30 * * * * cd /root/tsdm-checkin/ && /usr/local/bin/python3.8 tsdm_checkin.py &>> checkin.log
 ```
 
 ## TODO

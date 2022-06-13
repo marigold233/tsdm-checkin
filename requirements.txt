@@ -1,6 +1,3 @@
-requests
-schedule
 toml
-loguru
+requests
 parsel
-wurlitzer
